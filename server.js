@@ -1,17 +1,19 @@
 const express = require('express')
+const bodyParser = require('body-parser')
 
-const app = express()
+var app = express()
 
-app.get('/user/login', (req, res) => {
-    console.log('emmmm')
-    let { a, aa } = req.query
-    if (a === '1' && aa === '1') {
-        res.send({ err: 0, msg: 'ok' })
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
 
-    } else {
-        res.send({ err: -1, msg: 'emmmmm' })
-    }
-})
+// parse application/json
+app.use(bodyParser.json())
+
+let userRouter = require('./router/userRouter')
+
+app.use('/user', userRouter)
+
 app.listen(8000, () => {
     console.log('server start')
 })
+
