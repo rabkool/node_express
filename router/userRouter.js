@@ -1,21 +1,42 @@
-var express = require('express')
-var router = express.Router()
-
-router.get('/login', (req, res) => {
-    console.log('emmmm')
-    let { a, aa } = req.query
-    if (a === '1' && aa === '1') {
-        res.send({ err: 0, msg: 'ok' })
-
-    } else {
-        res.send({ err: -1, msg: 'emmmmm' })
-    }
-})
+const express = require('express')
+const router = express.Router()
+const User = require('../db/model/userModel')
 
 router.post('/reg', (req, res) => {
-    console.log(req.body)
+    let { name, password } = req.body
+    if (name && password) {
+        User.insertMany({
+            name: name,
+            password: password,
+        }).then((data) => {
+            res.send({ err: 0, msg: 'reg ok' })
+        }).catch((err) => {
+            res.send({ err: -2, msg: 'reg failure' })
+        })
+    } else {
+        return res.send({ err: -1, msg: 'emmmmm' })
+    }
+    console.log(name, password)
+})
 
-    res.send({ err: 1, msg: '11111111111111111' })
+router.post('/login', (req, res) => {
+    let { name, password } = req.body
+    if (!name || !password) {
+        return res.send({ err: -1, msg: 'emmmmm' })
+    }
+    User.find({
+        name: name,
+        password: password
+    }).then((data) => {
+        if (data.length > 0) {
+            res.send({ err: 0, msg: 'login ok' })
+
+        } else {
+            res.send({ err: -2, msg: 'login failure' })
+        }
+    }).catch((err) => {
+        res.send({ err: -1, msg: 'emmmmm' })
+    })
 })
 
 router.get('/add', (req, res) => {
