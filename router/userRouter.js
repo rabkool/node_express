@@ -16,7 +16,6 @@ router.post('/reg', (req, res) => {
     } else {
         return res.send({ err: -1, msg: 'emmmmm' })
     }
-    console.log(name, password)
 })
 
 router.post('/login', (req, res) => {
