@@ -41,7 +41,7 @@
       $.post(url, params, (data) => {
         console.log(data)
         if (data.err == 0) {
-          window.location.href = './register.html'
+          window.location.href = './register'
         } else {
           alert(data.msg)
         }

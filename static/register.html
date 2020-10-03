@@ -41,7 +41,7 @@
             $.post(url, params, (data) => {
                 console.log(data)
                 if (data.err == 0) {
-                    window.location.href = './index.html'
+                    window.location.href = './index'
                 } else {
                     alert(data.msg)
                 }

@@ -11,12 +11,15 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
-
 app.use(express.static(path.join(__dirname, './static')))
 
 let userRouter = require('./router/userRouter')
 
+let router = require('./static/router')
+
 app.use('/user', userRouter)
+
+app.use(router)
 
 app.post('/decodebf', (req, res) => {
     let { result } = req.body

@@ -29,7 +29,6 @@ router.post('/login', (req, res) => {
     }).then((data) => {
         if (data.length > 0) {
             res.send({ err: 0, msg: 'success' })
-
         } else {
             res.send({ err: -2, msg: 'login failure' })
         }
