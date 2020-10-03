@@ -21,7 +21,7 @@ app.use('/user', userRouter)
 app.post('/decodebf', (req, res) => {
     let { result } = req.body
     if (!result) {
-        return res.send({ err: 999999999, msg: '入力してくださいよ。空はダメだよ' })
+        return res.send({ err: -1, msg: '入力してくださいよ。空はダメだよ' })
     }
     if (typeof result == 'string') {
         try {
@@ -29,13 +29,13 @@ app.post('/decodebf', (req, res) => {
             if (Buffer.isBuffer(buf)) {
                 rabkool = buf.toString()
             } else {
-                return res.send({ err: 999999999, msg: 'Bufferを入力してくださいよ' })
+                return res.send({ err: -1, msg: 'Bufferを入力してくださいよ' })
             }
         } catch (e) {
-            return res.send({ err: 999999999, msg: 'Bufferを入力してください' })
+            return res.send({ err: -1, msg: 'Bufferを入力してください' })
         }
     }
-    return res.send('结果:' + rabkool)
+    return res.send({ err: 0, msg: rabkool })
 })
 
 app.listen(80, () => {
