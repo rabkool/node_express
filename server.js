@@ -11,6 +11,11 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
+// ejs
+app.set('view engine', 'ejs')
+
+app.set('views', './static/views')
+
 app.use(express.static(path.join(__dirname, './static')))
 
 let userRouter = require('./router/userRouter')
