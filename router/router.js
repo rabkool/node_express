@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+let { resolve } = require('path')
 
 
 router.get('/index', (req, res) => {
@@ -9,23 +10,23 @@ router.get('/index', (req, res) => {
             title: '彼女募集中', content: '彼女募集中'
         }
     ]
-    res.render('index', {data: data})
+    res.render('index', { data: data })
 })
 
 router.get('/login', (req, res) => {
-    res.sendFile(__dirname + '/login.html')
+    res.sendFile(resolve(__dirname, '../static/login.html'))
 })
 
 router.get('/buffer', (req, res) => {
-    res.sendFile(__dirname + '/buffer.html')
+    res.sendFile(resolve(__dirname, '../static/buffer.html'))
 })
 
 router.get('/register', (req, res) => {
-    res.sendFile(__dirname + '/register.html')
+    res.sendFile(resolve(__dirname, '../static/register.html'))
 })
 
 router.get('/recruit', (req, res) => {
-    res.sendFile(__dirname + '/recruit.html')
+    res.sendFile(resolve(__dirname, '../static/recruit.html'))
 })
 
 module.exports = router

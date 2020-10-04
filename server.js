@@ -20,7 +20,7 @@ app.use(express.static(path.join(__dirname, './static')))
 
 let userRouter = require('./router/userRouter')
 
-let router = require('./static/router')
+let router = require('./router/router')
 
 app.use('/user', userRouter)
 
