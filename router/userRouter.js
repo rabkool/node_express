@@ -4,18 +4,33 @@ const User = require('../db/model/userModel')
 
 router.post('/reg', (req, res) => {
     let { name, password } = req.body
-    if (name && password) {
-        User.insertMany({
-            name: name,
-            password: password,
-        }).then((data) => {
-            res.send({ err: 0, msg: 'reg ok' })
-        }).catch((err) => {
-            res.send({ err: -2, msg: 'reg failure' })
-        })
-    } else {
-        return res.send({ err: -1, msg: 'emmmmm' })
-    }
+    let errMsg = {}
+
+    User.findOne({
+        name
+    }).then((data) => {
+        if (data) {
+            errMsg.name = `${name}已被注册`
+            res.send({ err: -2, msg: errMsg.name })
+            return
+        }
+
+        if (name && password) {
+            User.insertMany({
+                name: name,
+                password: password,
+            }).then((data) => {
+                res.send({ err: 0, msg: 'reg ok' })
+            }).catch((err) => {
+                res.send({ err: -2, msg: 'reg failure' })
+            })
+        } else {
+            return res.send({ err: -1, msg: 'emmmmm' })
+        }
+
+    }).catch((err) => {
+        res.send({ err: -1, msg: 'emmmmm' })
+    })
 })
 
 router.post('/login', (req, res) => {
