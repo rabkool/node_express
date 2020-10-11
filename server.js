@@ -22,29 +22,13 @@ let userRouter = require('./router/userRouter')
 
 let router = require('./router/router')
 
+let bufferRouter = require('./router/bufferRouter')
+
 app.use('/user', userRouter)
 
 app.use(router)
 
-app.post('/decodebf', (req, res) => {
-    let { result } = req.body
-    if (!result) {
-        return res.send({ err: -1, msg: '入力してくださいよ。空はダメだよ' })
-    }
-    if (typeof result == 'string') {
-        try {
-            buf = Buffer.from(JSON.parse(result))
-            if (Buffer.isBuffer(buf)) {
-                rabkool = buf.toString()
-            } else {
-                return res.send({ err: -1, msg: 'Bufferを入力してくださいよ' })
-            }
-        } catch (e) {
-            return res.send({ err: -1, msg: 'Bufferを入力してください' })
-        }
-    }
-    return res.send({ err: 0, msg: rabkool })
-})
+app.use(bufferRouter)
 
 app.listen(80, () => {
     console.log('server start')
