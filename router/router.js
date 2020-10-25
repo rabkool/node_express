@@ -3,6 +3,16 @@ const router = express.Router()
 let { resolve } = require('path')
 
 
+router.get('/', (req, res) => {
+
+    let data = [
+        {
+            title: '彼女募集中', content: '彼女募集中'
+        }
+    ]
+    res.render('index', { data: data })
+})
+
 router.get('/index', (req, res) => {
 
     let data = [
